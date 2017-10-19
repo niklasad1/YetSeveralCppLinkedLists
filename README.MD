@@ -13,7 +13,7 @@ A double LinkedLists implementation using raw pointers that manages memory corre
 according to my acceptance tests.
 
 ## LinkedListSmartPointerBad
-A very naive double LinkedList implementation using ``shared_ptrs```
+A very naive double LinkedList implementation using ```shared_ptr```
 
 ## LinkedListSmartPointer
 TODO
