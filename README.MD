@@ -5,13 +5,15 @@ But also demonstrate that SmartPointers are not magic but can be useful if they
 are used correctly.
 
 ## BadLinkedListRawPointers
-A very naive LinkedList implementation that never manages memory after deletion
+A very naive double LinkedList implementation using raw pointers that never manages 
+memory incorrectly
 
 ## LinkedListRawPointers
-A fairly ok LinkedLists implementation of raw pointers that handles memory and
-do not leak memory
+A double LinkedLists implementation using raw pointers that manages memory correctly 
+according to my acceptance tests.
 
-## LinkedListSmartPointerLeaky
-
+## LinkedListSmartPointerBad
+A very naive double LinkedList implementation using ``shared_ptrs```
 
 ## LinkedListSmartPointer
+TODO
