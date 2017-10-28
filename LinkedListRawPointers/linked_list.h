@@ -5,6 +5,9 @@
 // The implementation assumes that the "values" allocated stack with a bigger
 // than lifetime than the heap allocated data
 
+#include <iostream>
+
+
 template <typename T>
 class LinkedList {
   private:
@@ -17,10 +20,10 @@ class LinkedList {
 
     // Helper Functions
     unsigned int sizeHelper(Node *n) const noexcept;
-    bool containsHelper(Node *n, T const elem) const noexcept;
+    bool containsHelper(Node *n, const T& elem) const noexcept;
     Node* removeLastHelper();
     Node* removeFirstHelper();
-    Node* removeHelper(Node *n, T const elem);
+    Node* removeHelper(Node *n, const T& elem);
 
     // Data
     Node* head;
@@ -29,18 +32,16 @@ class LinkedList {
   public:
     explicit LinkedList();
     ~LinkedList();
-    // default copy constructor -> let the compiler generate this
-    LinkedList(const LinkedList& b) = default;
-    // default move constructor -> let the compiler generate this
-    LinkedList (LinkedList&& b) = default;
-    // default move assignment -> let the compiler generate this
-    LinkedList &operator=(LinkedList&& b) = default;
-    // default assignment -> let the compiler generate this
-    LinkedList &operator=(const LinkedList& b) = default;
+
+    // don't support the following
+    LinkedList(const LinkedList& b) = delete;
+    LinkedList (LinkedList&& b) = delete;
+    LinkedList &operator=(LinkedList&& b) = delete;
+    LinkedList &operator=(const LinkedList& b) = delete;
 
     // Space complexity - O(1)
     // Time complexity - O(1)
-    void clear() noexcept;
+    void clear();
 
     // Space complexity - O(1)
     // Time complexity - O(1)
@@ -84,6 +85,13 @@ class LinkedList {
     // Time complexity - O(n)
     T const get(const int& index);
 
+    void printList() {
+      for(auto it = head; it != nullptr; it = it->next) {
+        std::cout << "key: " << it->value << std::endl;
+      }
+    }
+
+
 };
 
 template <typename T>
@@ -100,7 +108,7 @@ bool LinkedList<T>::empty() const noexcept {
 }
 
 template <typename T>
-void LinkedList<T>::clear() noexcept {
+void LinkedList<T>::clear() {
   while (head != nullptr) {
     auto rm = removeFirstHelper();
     delete rm;
@@ -266,7 +274,7 @@ unsigned int LinkedList<T>::sizeHelper(Node *curr) const noexcept {
 }
 
 template <typename T>
-bool LinkedList<T>::containsHelper(Node *curr, T elem) const noexcept {
+bool LinkedList<T>::containsHelper(Node *curr, const T& elem) const noexcept {
   if (!curr) return false;
   else if (curr->value == elem) {
     return true;
@@ -275,7 +283,7 @@ bool LinkedList<T>::containsHelper(Node *curr, T elem) const noexcept {
 }
 
 template <typename T>
-auto LinkedList<T>::removeHelper(Node *curr, T elem) -> Node* {
+auto LinkedList<T>::removeHelper(Node *curr, const T& elem) -> Node* {
   if (!curr) {
     throw std::runtime_error("element not in the list");
   }

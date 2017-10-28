@@ -5,20 +5,22 @@ CXXFLAGS += -Wextra
 CXXFLAGS += -pedantic
 CXXFLAGS += -Werror
 CXXFLAGS += -g
+CXXFLAGS += -fsanitize=address
+# CXXFLAGS += -fsanitize=thread
+CXXFLAGS += -fno-omit-frame-pointer
+CXXFLAGS += -O1
 
 SRC = main.cpp
-INC = 
+INC = linked_list.h linked_list_tests.h
+LIB = -lgtest -lgtest_main -lpthread
 OUT = main.out
 
 .PHONY: cpp
-cpp: cpp.out 
+cpp: cpp.out
 
 .PHONY: clean
 clean:
 	rm -f *.o *.out
 
 cpp.out: $(SRC) $(INC)
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT)
-
-c.out: $(SRC) $(INC)
-	$(CC) $(CFLAGS) $(SRC) -o $(OUT)
+	$(CXX) $(CXXFLAGS) $(SRC) $(LIB) -o $(OUT)
